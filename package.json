@@ -1,0 +1,24 @@
+{
+  "name": "isbn",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "micro",
+    "dev": "micro-dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "micro-dev": "^3.0.0"
+  },
+  "dependencies": {
+    "airtable": "^0.7.0",
+    "jsdom": "^15.1.1",
+    "micro": "^9.3.4",
+    "node-fetch": "^2.6.0",
+    "p-retry": "^4.1.0",
+    "route-parser": "^0.0.5"
+  }
+}
