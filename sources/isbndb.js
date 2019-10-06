@@ -1,5 +1,5 @@
 const fetch = require('node-fetch')
-const {getDOM} = require('../lib')
+const {getDOM} = require('../modules')
 
 const ROOT_URL = 'https://isbndb.com/book'
 
