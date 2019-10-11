@@ -1,18 +1,19 @@
-const fetch = require('node-fetch')
-const {getDOM} = require('../modules')
+const fetch = require("node-fetch");
+const { getDOM } = require("../lib");
 
-const ROOT_URL = 'http://www.bookfinder4u.com'
+const ROOT_URL = "http://www.bookfinder4u.com";
 
-const generateQueryUrl = (isbn) => `${ROOT_URL}//IsbnSearch.aspx?isbn=${isbn}&mode=direct`
+const generateQueryUrl = isbn =>
+  `${ROOT_URL}//IsbnSearch.aspx?isbn=${isbn}&mode=direct`;
 
-module.exports = async (isbn) => {
-  let data = {}
-  const url = generateQueryUrl(isbn)
-  console.log(url)
-  const response = await fetch(url)
-  const html = await response.text()
-  const dom = getDOM(html)
-  const document = dom.window.document
+module.exports = async isbn => {
+  let data = {};
+  const url = generateQueryUrl(isbn);
+  console.log(url);
+  const response = await fetch(url);
+  const html = await response.text();
+  const dom = getDOM(html);
+  const document = dom.window.document;
 
   // const imgSelector = '.image > img'
   // const h1Selector = '.bookinfo > h1'
@@ -37,7 +38,5 @@ module.exports = async (isbn) => {
   //   }
   // }
 
-
-  return data
-}
-
+  return data;
+};

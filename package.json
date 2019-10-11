@@ -5,20 +5,36 @@
   "main": "index.js",
   "scripts": {
     "start": "micro",
-    "dev": "micro-dev"
+    "dev": "NODE_ENV=development micro-dev",
+    "precommit": "pretty-quick --staged",
+    "format": "pretty-quick"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
-    "micro-dev": "^3.0.0"
+    "dotenv-safe": "^8.1.0",
+    "husky": "^3.0.8",
+    "micro-dev": "^3.0.0",
+    "prettier": "^1.18.2",
+    "pretty-quick": "^1.11.1"
   },
   "dependencies": {
+    "add": "^2.0.6",
     "airtable": "^0.7.0",
+    "joi": "^14.3.1",
     "jsdom": "^15.1.1",
     "micro": "^9.3.4",
+    "monk": "^7.1.0",
+    "monk-middleware-wrap-non-dollar-update": "^0.2.1",
     "node-fetch": "^2.6.0",
     "p-retry": "^4.1.0",
-    "route-parser": "^0.0.5"
+    "route-parser": "^0.0.5",
+    "yarn": "^1.19.0"
   }
 }
