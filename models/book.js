@@ -10,11 +10,22 @@ const schema = joi
     publisher: joi.string().required(),
     published: joi.string().required(),
     source: joi.string().required(),
-    language: joi.string().default(""),
-    binding: joi.string().default(""),
-    cover: joi.string().default("")
+    language: joi
+      .string()
+      .optional()
+      .allow("")
+      .default(""),
+    binding: joi
+      .string()
+      .optional()
+      .allow("")
+      .default(""),
+    cover: joi
+      .string()
+      .optional()
+      .allow("")
+      .default("")
   })
-  .unknown()
-  .required();
+  .unknown();
 
 module.exports = data => joi.validate(data, schema);

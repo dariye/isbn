@@ -8,28 +8,36 @@ const storage = db();
 
 const find = async isbn => {
   let data = {};
-  const titles = storage["titles"];
-  const stored = await titles.get(isbn);
+  const titles = storage.titles;
 
-  // First look through db
-  if (stored && Object.keys(stored).length > 0) {
-    data = stored;
-    return data;
+  try {
+    const stored = await titles.get(isbn);
+
+    if (stored && Object.keys(stored).length > 0) {
+      data = stored;
+      return data;
+    }
+  } catch (err) {
+    console.error(err);
   }
 
   for (let source in sources) {
     const raw = await sources[source](isbn);
-    console.log("raw", raw);
-    const { value, error } = models.book(raw);
-    if (error) {
-      console.log("error", error, value);
-      break;
-    }
 
-    if (value) {
-      console.log("data", data);
-      data = await titles.save(value);
-      break;
+    if (!raw || Object.keys(raw).length === 0) {
+      continue;
+    }
+    try {
+      const { value, error } = models.book(raw);
+      if (value && Object.keys(value).length > 0 && !error) {
+        data = await titles.save(value);
+        break;
+      } else {
+        continue;
+      }
+    } catch (err) {
+      console.error(err);
+      continue;
     }
   }
   return data;
@@ -57,8 +65,8 @@ const main = async (req, res) => {
     } else {
       send(res, 404);
     }
-  } catch (e) {
-    console.log(e);
+  } catch (err) {
+    console.error(err);
     send(res, 500);
   }
 };
