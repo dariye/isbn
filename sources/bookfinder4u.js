@@ -1,5 +1,5 @@
 const fetch = require("node-fetch");
-const { getDOM } = require("../lib");
+const { dom } = require("../lib");
 
 const ROOT_URL = "http://www.bookfinder4u.com";
 
@@ -12,8 +12,8 @@ module.exports = async isbn => {
   console.log(url);
   const response = await fetch(url);
   const html = await response.text();
-  const dom = getDOM(html);
-  const document = dom.window.document;
+  const page = dom(html);
+  const document = page.window.document;
 
   // const imgSelector = '.image > img'
   // const h1Selector = '.bookinfo > h1'

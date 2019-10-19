@@ -1,5 +1,5 @@
 const fetch = require("node-fetch");
-const { getDOM } = require("../lib");
+const { dom } = require("../lib");
 
 const ROOT_URL = "https://isbndb.com/book";
 
@@ -8,8 +8,8 @@ module.exports = async isbn => {
   const url = `${ROOT_URL}/${isbn}`;
   const response = await fetch(url);
   const html = await response.text();
-  const dom = getDOM(html);
-  const document = dom.window.document;
+  const page = dom(html);
+  const document = page.window.document;
   const imgSelector = 'object[type="image/png"]';
   const tdSelector = ".book-table > table tr";
   const cells = Array.from(document.querySelectorAll(tdSelector)).map(cell =>
