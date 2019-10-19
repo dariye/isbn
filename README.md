@@ -29,6 +29,8 @@ Example response
 - [x] Add [graphql](https://github.com/apollographql/apollo-server/tree/master/packages/apollo-server-micro)
 - [ ] Add website
 - [ ] Add health check for server
+- [ ] Submit to https://github.com/APIs-guru/graphql-apis
+- [ ] Add to awesome-mico // built with micro
 - [ ] Add tests
 - [ ] Port to TS
 - [ ] Source ranking; db over api call over scraping

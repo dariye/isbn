@@ -40,6 +40,7 @@
     "p-retry": "^4.1.0",
     "route-parser": "^0.0.5",
     "serve-handler": "^6.1.2",
+    "validator": "^11.1.0",
     "yarn": "^1.19.0"
   }
 }

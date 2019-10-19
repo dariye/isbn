@@ -1,4 +1,6 @@
-const { ApolloServer, gql } = require("apollo-server-micro");
+const { ApolloServer, gql, UserInputError } = require("apollo-server-micro");
+const validator = require("validator");
+const { find } = require("../lib");
 
 const typeDefs = gql`
   type Book {
@@ -17,19 +19,21 @@ const typeDefs = gql`
   }
 
   type Query {
-    get: String
+    get(isbn: String): Book
   }
 `;
 
 const resolvers = {
   Query: {
-    get(parent, args, context) {
-      // console.log(parent, args, context)
-      return "Hello World!";
+    async get(_parent, { isbn }, _context) {
+      if (validator.isISBN(isbn)) {
+        return find(isbn);
+      } else {
+        throw new UserInputError(`Invalid ISBN: ${isbn}`);
+      }
     }
   }
 };
 
 const apolloServer = new ApolloServer({ typeDefs, resolvers });
-const graphqlPath = "/graphql";
-module.exports = apolloServer.createHandler({ path: graphqlPath });
+module.exports = apolloServer.createHandler({ path: "/graphql" });

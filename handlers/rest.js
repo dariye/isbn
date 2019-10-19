@@ -1,51 +1,13 @@
 const { send } = require("micro");
 const retry = require("p-retry");
-const sources = require("../sources");
-const models = require("../models");
-const { db } = require("../lib");
-const storage = db();
-
-const find = async isbn => {
-  let data = {};
-  const titles = storage.titles;
-
-  try {
-    const stored = await titles.get(isbn);
-
-    if (stored && Object.keys(stored).length > 0) {
-      data = stored;
-      return data;
-    }
-  } catch (err) {
-    console.error(err);
-  }
-
-  for (let source in sources) {
-    const raw = await sources[source](isbn);
-
-    if (!raw || Object.keys(raw).length === 0) {
-      continue;
-    }
-    try {
-      const { value, error } = models.book(raw);
-      if (value && Object.keys(value).length > 0 && !error) {
-        data = await titles.save(value);
-        break;
-      } else {
-        continue;
-      }
-    } catch (err) {
-      console.error(err);
-      continue;
-    }
-  }
-  return data;
-};
+const validator = require("validator");
+const { find } = require("../lib");
 
 module.exports = async (req, res) => {
   const { isbn } = req.params;
+
   try {
-    if (isbn) {
+    if (validator.isISBN(isbn)) {
       const data = await retry(() => find(isbn), {
         onFailedAttempt: error => {
           console.log(
@@ -60,7 +22,7 @@ module.exports = async (req, res) => {
         send(res, 204);
       }
     } else {
-      send(res, 404);
+      send(res, 204, { message: `Invalid ISBN: ${isbn}` });
     }
   } catch (err) {
     console.error(err);
