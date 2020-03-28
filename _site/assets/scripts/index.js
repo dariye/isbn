@@ -12,3 +12,19 @@ console.log("jow");
   .then(res => res.json())
   .then(res => console.log(res.data));
  */
+
+function loadGQLPlayaground() {
+  const gqlplayground = document.getElementById("gqlplayground");
+  gqlplayground.classList.add("playgroundIn");
+  GraphQLPlayground.init(gqlplayground, {
+    endpoint: "http://localhost:3000/graphql"
+  });
+}
+
+function app() {
+  loadGQLPlayaground();
+}
+
+window.addEventListener("load", function(event) {
+  app();
+});
