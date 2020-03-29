@@ -2,7 +2,14 @@ const fs = require("fs");
 const path = require("path");
 
 const normalizedPath = path.join(__dirname, ".");
-const blacklist = ["index.js", "bookfinder4u.js", "bookfinder.js"];
+const blacklist = [
+  "index.js",
+  "bookfinder4u.js",
+  "bookfinder.js",
+  "isbndb.js",
+  "isbnsearch.js",
+  "openlibrary.js"
+];
 
 fs.readdirSync(normalizedPath).forEach(function(file) {
   if (!blacklist.includes(file)) {

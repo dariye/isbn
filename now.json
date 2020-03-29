@@ -4,6 +4,7 @@
   "alias": "isbn",
   "type": "npm",
   "env": {
-    "MONGODB_URI": "@isbn_mongo_uri"
+    "MONGODB_URI": "@isbn_mongo_uri",
+    "GOOGLE_API_KEY": "@isbn_google_api_key"
   }
 }
