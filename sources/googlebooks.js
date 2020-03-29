@@ -6,6 +6,8 @@ const {
 
 const titleURI = isbn => `${api}/volumes?q=isbn:${isbn}&key=${api_key}`;
 
+const encoded = value => encodeURIComponent(value);
+
 module.exports = async isbn => {
   const source = "googlebooks";
   const response = await fetch(titleURI(isbn));
@@ -22,8 +24,8 @@ module.exports = async isbn => {
 
   const {
     selfLink,
-    searchInfo: { textSnippet },
-    saleInfo: { country } = {},
+    searchInfo: { textSnippet = "" },
+    saleInfo: { country = "" } = {},
     volumeInfo: {
       publishedDate,
       publisher,
@@ -35,7 +37,14 @@ module.exports = async isbn => {
       printType,
       categories,
       maturityRating,
-      imageLinks: { thumbnail, smallThumbnail } = {},
+      imageLinks: {
+        thumbnail = `https://via.placeholder.com/256x336.png?text=${encoded(
+          item.volumeInfo.title
+        )}`,
+        smallThumbnail = `https://via.placeholder.com/128x168.png?text=${encoded(
+          item.volumeInfo.title
+        )}`
+      } = {},
       language,
       canonicalVolumeLink
     } = {}
@@ -47,6 +56,9 @@ module.exports = async isbn => {
       [type.toLowerCase()]: identifier
     }))
   );
+
+  const genre = categories ? categories.join(", ") : "";
+  const author = authors ? authors.join(", ") : "";
 
   data = {
     ...data,
@@ -62,13 +74,13 @@ module.exports = async isbn => {
     printType,
     pageCount,
     publisher,
+    genre,
+    author,
     sourceLink: selfLink,
     published: publishedDate,
     url: canonicalVolumeLink,
 
-    excerpt: textSnippet,
-    genre: categories.join(", "),
-    author: authors.join(", ")
+    excerpt: textSnippet
   };
 
   return { ...data };
