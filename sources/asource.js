@@ -24,7 +24,7 @@ module.exports = async isbn => {
 
   const {
     selfLink,
-    searchInfo: { textSnippet = "" },
+    searchInfo: { textSnippet = "" } = {},
     saleInfo: { country = "" } = {},
     volumeInfo: {
       publishedDate,
