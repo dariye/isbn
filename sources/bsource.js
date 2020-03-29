@@ -28,7 +28,7 @@ module.exports = async isbn => {
     number_of_pages,
     publish_date,
     authors,
-    cover
+    cover: { small, medium, large } = {}
   } = item;
 
   const genre = subjects ? subjects.map(({ name }) => name).join(", ") : "";
@@ -46,13 +46,13 @@ module.exports = async isbn => {
     genre,
     author,
     thumbnail:
-      cover.large ||
-      cover.medium ||
+      large ||
+      medium ||
       `https://via.placeholder.com/256x336.png?text=${encoded(
         item.volumeInfo.title
       )}`,
     smallThumbnail:
-      cover.small ||
+      small ||
       `https://via.placeholder.com/256x336.png?text=${encoded(
         item.volumeInfo.title
       )}`,
