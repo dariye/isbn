@@ -24,6 +24,7 @@ const typeDefs = gql`
     smallThumbnail: String
     sourceLink: String
     pageCount: Int
+    country: String
   }
 
   type Query {

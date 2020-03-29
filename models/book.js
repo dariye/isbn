@@ -23,7 +23,8 @@ const schema = joi
     thumbnail: joi.string().default(""),
     maturityRating: joi.string().default(""),
     printType: joi.string().default(""),
-    sourceLink: joi.string().default("")
+    sourceLink: joi.string().default(""),
+    country: joi.string().default("")
   })
   .unknown();
 
