@@ -4,6 +4,7 @@ const { dom } = require("../lib");
 const ROOT_URL = "https://isbnsearch.org/isbn";
 
 module.exports = async isbn => {
+  const source = "isbnsearch";
   let data = {};
   const url = `${ROOT_URL}/${isbn}`;
   const response = await fetch(url);
@@ -14,29 +15,27 @@ module.exports = async isbn => {
   const imgSelector = ".image > img";
   const h1Selector = ".bookinfo > h1";
   const pSelector = ".bookinfo > p";
-  const paragraphs = Array.from(document.querySelectorAll(pSelector)).map(
-    cell => {
-      const content = cell.textContent;
-      return content.substr(content.indexOf(":") + 1).trim();
-    }
-  );
+  let title;
+  let cover;
 
-  if (paragraphs.length) {
-    data = {
-      url,
-      id: isbn,
-      source: "isbnsearch",
-      title: document.querySelector(imgSelector).src || "",
-      isbn_10: paragraphs[1] || "",
-      isbn_13: paragraphs[0] || "",
-      author: paragraphs[2] || "",
-      binding: paragraphs[3] || "",
-      publisher: paragraphs[4] || "",
-      published: paragraphs[5] || "",
-      language: "",
-      cover: document.querySelector(imgSelector).src || ""
-    };
+  if (document.querySelector(h1Selector)) {
+    title = document.querySelector(h1Selector).textContent.trim();
   }
+
+  if (document.querySelector(imgSelector)) {
+    cover = document.querySelector(imgSelector).src || "";
+  }
+
+  data = { id: isbn, title, url, source, cover };
+
+  Array.from(document.querySelectorAll(pSelector)).forEach(cell => {
+    const content = cell.textContent;
+    if (content) {
+      const field = content.substr(0, content.indexOf(":")).trim();
+      const value = content.substr(content.indexOf(":") + 1).trim();
+      data[`${field.toLowerCase().replace("-", "_")}`] = value;
+    }
+  });
 
   return data;
 };

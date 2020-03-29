@@ -1,11 +1,12 @@
-const fs = require('fs')
-const path = require('path')
+const fs = require("fs");
+const path = require("path");
 
-const normalizedPath = path.join(__dirname, '.')
+const normalizedPath = path.join(__dirname, ".");
+const blacklist = ["index.js", "bookfinder4u.js", "bookfinder.js"];
 
-fs.readdirSync(normalizedPath).forEach(function (file) {
-  if (!file.includes('index.js')) {
-    const name = file.replace('.js', '')
-    exports[name] = require(`${normalizedPath}/${file}`)
+fs.readdirSync(normalizedPath).forEach(function(file) {
+  if (!blacklist.includes(file)) {
+    const name = file.replace(".js", "");
+    exports[name] = require(`${normalizedPath}/${file}`);
   }
-})
+});

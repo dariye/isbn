@@ -4,6 +4,7 @@ const { dom } = require("../lib");
 const ROOT_URL = "https://isbndb.com/book";
 
 module.exports = async isbn => {
+  const source = "isbndbn";
   let data = {};
   const url = `${ROOT_URL}/${isbn}`;
   const response = await fetch(url);
@@ -12,26 +13,23 @@ module.exports = async isbn => {
   const document = page.window.document;
   const imgSelector = 'object[type="image/png"]';
   const tdSelector = ".book-table > table tr";
-  const cells = Array.from(document.querySelectorAll(tdSelector)).map(cell =>
-    cell.lastElementChild.textContent.trim()
-  );
+  const cover = document.querySelector(imgSelector).data;
+  data = { id: isbn, url, source, cover };
+  const fields = {};
 
-  if (cells.length) {
-    data = {
-      url,
-      id: isbn,
-      source: "isbndb",
-      title: cells[0] || "",
-      isbn_10: cells[1] || "",
-      isbn_13: cells[2] || "",
-      publisher: cells[4] || "",
-      author: cells[5] || "",
-      published: cells[6] || "",
-      binding: cells[7] || "",
-      language: cells[8] || "",
-      cover: document.querySelector(imgSelector).data
-    };
-  }
+  Array.from(document.querySelectorAll(tdSelector)).forEach(cell => {
+    const cellField = cell.firstElementChild;
+    const cellValue = cell.lastElementChild;
+    if (cell && cellField && cellValue) {
+      const field = cellField.textContent.trim();
+      const value = cellValue.textContent.trim();
+      fields[`${field.toLowerCase()}`] = value;
+    }
+  });
 
-  return data;
+  const { publisher, authors: author, language, binding } = fields;
+
+  const title = fields["full title"];
+  const published = fields["publish date"];
+  return { ...data, publisher, author, binding, language, title, published };
 };
