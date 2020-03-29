@@ -15,8 +15,8 @@ module.exports = async isbn => {
   const imgSelector = ".image > img";
   const h1Selector = ".bookinfo > h1";
   const pSelector = ".bookinfo > p";
-  let title;
-  let cover;
+  let title = "";
+  let cover = "";
 
   if (document.querySelector(h1Selector)) {
     title = document.querySelector(h1Selector).textContent.trim();

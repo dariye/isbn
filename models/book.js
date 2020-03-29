@@ -7,24 +7,24 @@ const schema = joi
     isbn_10: joi.string().required(),
     isbn_13: joi.string().required(),
     author: joi.string().required(),
-    publisher: joi.string().required(),
-    published: joi.string().required(),
     source: joi.string().required(),
-    language: joi
-      .string()
-      .optional()
-      .allow("")
-      .default(""),
-    binding: joi
-      .string()
-      .optional()
-      .allow("")
-      .default(""),
-    cover: joi
-      .string()
-      .optional()
-      .allow("")
-      .default("")
+    pageCount: joi
+      .number()
+      .integer()
+      .default(0),
+    published: joi.string().default(""),
+    publisher: joi.string().default(""),
+    excerpt: joi.string().default(""),
+    genre: joi.string().default(""),
+    description: joi.string().default(""),
+    language: joi.string().default(""),
+    binding: joi.string().default(""),
+    smallThumbnail: joi.string().default(""),
+    thumbnail: joi.string().default(""),
+    maturityRating: joi.string().default(""),
+    printType: joi.string().default(""),
+    sourceLink: joi.string().default(""),
+    country: joi.string().default("")
   })
   .unknown();
 
