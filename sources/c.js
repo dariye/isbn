@@ -16,17 +16,17 @@ module.exports = async isbn => {
   const h1Selector = ".bookinfo > h1";
   const pSelector = ".bookinfo > p";
   let title = "";
-  let cover = "";
+  let thumbnail = "";
 
   if (document.querySelector(h1Selector)) {
     title = document.querySelector(h1Selector).textContent.trim();
   }
 
   if (document.querySelector(imgSelector)) {
-    cover = document.querySelector(imgSelector).src || "";
+    thumbnail = document.querySelector(imgSelector).src || "";
   }
 
-  data = { id: isbn, title, url, source, cover };
+  data = { id: isbn, title, url, source, thumbnail, smallThumbnail: thumbnail };
 
   Array.from(document.querySelectorAll(pSelector)).forEach(cell => {
     const content = cell.textContent;
