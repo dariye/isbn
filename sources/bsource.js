@@ -19,7 +19,7 @@ module.exports = async isbn => {
 
   const {
     publishers,
-    identifiers,
+    identifiers = {},
     subtitle,
     notes,
     title,
@@ -57,8 +57,8 @@ module.exports = async isbn => {
         item.volumeInfo.title
       )}`,
     pageCount: number_of_pages,
-    isbn_10: identifiers.isbn_10[0],
-    isbn_13: identifiers.isbn_13[0],
+    isbn_10: identifiers.isbn_10 ? identifiers.isbn_10[0] : "",
+    isbn_13: identifiers.isbn_13 ? identifiers.isbn_13[0] : "",
     sourceLink: url,
     published: publish_date,
     url: url,
