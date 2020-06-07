@@ -1,7 +1,5 @@
 // import 'https://unpkg.com/unfetch/polyfill'
 
-console.log("jow");
-
 /**
  * 
  * fetch('https://1jzxrj179.lp.gql.zone/graphql', {

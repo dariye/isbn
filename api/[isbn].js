@@ -1,10 +1,9 @@
-const { send } = require("micro");
 const retry = require("p-retry");
 const validator = require("validator");
-const { find } = require("../lib");
+const { find } = require("../../lib");
 
 module.exports = async (req, res) => {
-  const { isbn } = req.params;
+  const isbn = req.query.isbn;
 
   try {
     if (validator.isISBN(isbn)) {
@@ -17,17 +16,17 @@ module.exports = async (req, res) => {
         retries: 5
       });
       if (Object.keys(data).length > 0) {
-        send(res, 200, {
+        res.status(200).send({
           ...data
         });
       } else {
-        send(res, 204);
+        res.status(204).send();
       }
     } else {
-      send(res, 204, { message: `Invalid ISBN: ${isbn}` });
+      res.status(204).send({ message: `Invalid ISBN: ${isbn}` });
     }
   } catch (err) {
     console.error(err);
-    send(res, 500);
+    res.status(500).send();
   }
 };
