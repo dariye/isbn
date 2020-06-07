@@ -1,4 +1,5 @@
 const fetch = require("node-fetch");
+const encodeUri = require("../utils/encode-uri");
 
 const OL_ROOT_API = "https://openlibrary.org/api";
 const OL_BOOKS_API = `${OL_ROOT_API}/books`;
@@ -48,12 +49,12 @@ module.exports = async isbn => {
     thumbnail:
       large ||
       medium ||
-      `https://via.placeholder.com/256x336.png?text=${encoded(
+      `https://via.placeholder.com/256x336.png?text=${encodeUri(
         item.volumeInfo.title
       )}`,
     smallThumbnail:
       small ||
-      `https://via.placeholder.com/256x336.png?text=${encoded(
+      `https://via.placeholder.com/256x336.png?text=${encodeUri(
         item.volumeInfo.title
       )}`,
     pageCount: number_of_pages,
