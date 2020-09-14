@@ -10,7 +10,7 @@
     {
       "src": "/graphql",
       "methods": ["GET", "POST"],
-      "dest": "/api/graphq/index.js"
+      "dest": "/api/graphql/index.js"
     },
     {
       "src": "/find/(?<isbn>[^/]*)",
