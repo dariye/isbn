@@ -98,6 +98,13 @@
     "@types/connect" "*"
     "@types/node" "*"
 
+"@types/bson@*":
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/@types/bson/-/bson-4.0.3.tgz#30889d2ffde6262abbe38659364c631454999fbf"
+  integrity sha512-mVRvYnTOZJz3ccpxhr3wgxVmSeiYinW+zlzQz3SXWaJmD1DuL05Jeq7nKw3SnbKmbleW5qrLG5vdyWe/A9sXhw==
+  dependencies:
+    "@types/node" "*"
+
 "@types/connect@*":
   version "3.4.32"
   resolved "https://registry.yarnpkg.com/@types/connect/-/connect-3.4.32.tgz#aa0e9616b9435ccad02bc52b5b454ffc2c70ba28"
@@ -187,6 +194,14 @@
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@types/mime/-/mime-2.0.1.tgz#dc488842312a7f075149312905b5e3c0b054c79d"
   integrity sha512-FwI9gX75FgVBJ7ywgnq/P7tw+/o1GUbtP0KzbtusLigAOgIgNISRK0ZPl4qertvXSIE8YbsVJueQ90cDt9YYyw==
+
+"@types/mongodb@^3.5.25":
+  version "3.6.3"
+  resolved "https://registry.yarnpkg.com/@types/mongodb/-/mongodb-3.6.3.tgz#5655af409d9e32d5d5ae9a653abf3e5f9c83eb7a"
+  integrity sha512-6YNqGP1hk5bjUFaim+QoFFuI61WjHiHE1BNeB41TA00Xd2K7zG4lcWyLLq/XtIp36uMavvS5hoAUJ+1u/GcX2Q==
+  dependencies:
+    "@types/bson" "*"
+    "@types/node" "*"
 
 "@types/node@*":
   version "12.11.1"
@@ -2451,11 +2466,12 @@ monk-middleware-wrap-non-dollar-update@^0.2.1:
   resolved "https://registry.yarnpkg.com/monk-middleware-wrap-non-dollar-update/-/monk-middleware-wrap-non-dollar-update-0.2.1.tgz#ee7b618160a47464c48ef6d9a3c32a8d9979cb6d"
   integrity sha1-7nthgWCkdGTEjvbZo8MqjZl5y20=
 
-monk@^7.1.0:
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/monk/-/monk-7.1.0.tgz#60b64f0e699e85d6dbb3390ed7b5acf1f15669f9"
-  integrity sha512-ElfUWyCnJrZfMaAN9YXFnlUJ11JPcYW0o1T+9DtDsdASyXTxNSzy4JSaatQ8+3vJQaXUihbbJM5bdwxhpdm4gQ==
+monk@^7.3.2:
+  version "7.3.2"
+  resolved "https://registry.yarnpkg.com/monk/-/monk-7.3.2.tgz#cacf9875a270a29abd04494086e0f4cd1132c000"
+  integrity sha512-rf44p/l4HRDnrQXWci9SOz5uFAEQsHERVmE0tgya8OjOwqzeztE1sIcZ7JdxqpVk0Y1QyzApZWyBFWfvFB6sfQ==
   dependencies:
+    "@types/mongodb" "^3.5.25"
     debug "*"
     mongodb "^3.2.3"
     monk-middleware-cast-ids "^0.2.1"

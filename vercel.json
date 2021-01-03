@@ -2,7 +2,6 @@
   "version": 2,
   "alias": "isbn",
   "env": {
-    "MONGODB_URI": "@isbn_mongo_uri",
     "GOOGLE_API_KEY": "@isbn_google_api_key",
     "GOOGLE_BOOKS_API": "@isbn_google_books_api"
   },
