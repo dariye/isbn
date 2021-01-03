@@ -33,7 +33,7 @@
     "micro": "^9.3.4",
     "micro-cors": "^0.1.1",
     "microrouter": "^3.1.3",
-    "monk": "^7.1.0",
+    "monk": "^7.3.2",
     "monk-middleware-wrap-non-dollar-update": "^0.2.1",
     "node-fetch": "^2.6.0",
     "p-retry": "^4.1.0",
