@@ -4,9 +4,9 @@ const {
   google: { api_key, api }
 } = config;
 
-const titleURI = isbn => `${api}/volumes?q=isbn:${isbn}&key=${api_key}`;
+const encodeUri = require("../utils/encode-uri");
 
-const encoded = value => encodeURIComponent(value);
+const titleURI = isbn => `${api}/volumes?q=isbn:${isbn}&key=${api_key}`;
 
 module.exports = async isbn => {
   const source = "googlebooks";
@@ -38,10 +38,10 @@ module.exports = async isbn => {
       categories,
       maturityRating,
       imageLinks: {
-        thumbnail = `https://via.placeholder.com/256x336.png?text=${encoded(
+        thumbnail = `https://via.placeholder.com/256x336.png?text=${encodeUri(
           item.volumeInfo.title
         )}`,
-        smallThumbnail = `https://via.placeholder.com/128x168.png?text=${encoded(
+        smallThumbnail = `https://via.placeholder.com/128x168.png?text=${encodeUri(
           item.volumeInfo.title
         )}`
       } = {},

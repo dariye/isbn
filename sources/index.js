@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 
 const normalizedPath = path.join(__dirname, ".");
-const blacklist = ["index.js", "dsource.js", "esource.js", "fsource.js"];
+const blacklist = ["index.js", "a.js", "b.js", "c.js", "d.js", "e.js", "f.js"];
 
 fs.readdirSync(normalizedPath).forEach(function(file) {
   if (!blacklist.includes(file)) {
