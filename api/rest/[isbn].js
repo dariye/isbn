@@ -1,6 +1,6 @@
 // const retry = require('p-retry');
 const validator = require("validator");
-const { find } = require("../../lib");
+const find = require("../../lib/find");
 const regex = /\/(find\/(.+))/;
 
 module.exports = async (req, res) => {

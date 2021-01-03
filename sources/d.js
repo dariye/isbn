@@ -1,5 +1,5 @@
 const fetch = require("node-fetch");
-const { dom } = require("../lib");
+const dom = require("../lib/dom");
 
 const ROOT_URL = "https://www.bookfinder.com";
 

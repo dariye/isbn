@@ -1,6 +1,6 @@
 const { ApolloServer, gql, UserInputError } = require("apollo-server-micro");
 const validator = require("validator");
-const { find } = require("../../lib");
+const find = require("../../lib/find");
 
 const typeDefs = gql`
   type Book {
