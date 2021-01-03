@@ -1,7 +1,7 @@
 const joi = require("joi");
 const schema = joi
   .object({
-    MONGODB_URI: joi.string().required()
+    MONGO_URL: joi.string().required()
   })
   .unknown()
   .required();
@@ -12,7 +12,7 @@ if (error) throw new Error(`Config validation error: ${error.message}`);
 
 const config = {
   monk: {
-    uri: vars.MONGODB_URI
+    uri: vars.MONGO_URL
   }
 };
 
