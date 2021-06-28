@@ -7,24 +7,17 @@ const typeDefs = gql`
     id: String
     url: String
     title: String
-    isbn_10: String
-    isbn_13: String
     author: String
     publisher: String
     published: String
-    source: String
-    language: String
     description: String
-    excerpt: String
-    genre: String
     binding: String
-    printType: String
-    maturityRating: String
     thumbnail: String
     smallThumbnail: String
-    sourceLink: String
-    pageCount: Int
+    source: String
+    pageCount: String
     country: String
+    genre: String
   }
 
   type Query {
