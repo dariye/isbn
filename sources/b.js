@@ -1,41 +1,92 @@
 const fetch = require("node-fetch");
-const dom = require("../lib/dom");
+const config = require("../config");
+const {
+  google: { api_key, api }
+} = config;
 
-const ROOT_URL = "https://isbnsearch.org/isbn";
+const encodeUri = require("../utils/encode-uri");
+
+const titleURI = isbn => `${api}/volumes?q=isbn:${isbn}&key=${api_key}`;
 
 module.exports = async isbn => {
-  const source = "isbnsearch";
+  const source = "googlebooks";
   let data = {};
-  const url = `${ROOT_URL}/${isbn}`;
-  const response = await fetch(url);
-  const html = await response.text();
-  const page = dom(html);
-  const document = page.window.document;
+  try {
+    const response = await fetch(titleURI(isbn));
+    const json = await response.json();
+    const { items } = json;
 
-  const imgSelector = ".image > img";
-  const h1Selector = ".bookinfo > h1";
-  const pSelector = ".bookinfo > p";
-  let title = "";
-  let thumbnail = "";
-
-  if (document.querySelector(h1Selector)) {
-    title = document.querySelector(h1Selector).textContent.trim();
-  }
-
-  if (document.querySelector(imgSelector)) {
-    thumbnail = document.querySelector(imgSelector).src || "";
-  }
-
-  data = { id: isbn, title, url, source, thumbnail, smallThumbnail: thumbnail };
-
-  Array.from(document.querySelectorAll(pSelector)).forEach(cell => {
-    const content = cell.textContent;
-    if (content) {
-      const field = content.substr(0, content.indexOf(":")).trim();
-      const value = content.substr(content.indexOf(":") + 1).trim();
-      data[`${field.toLowerCase().replace("-", "_")}`] = value;
+    if (!items || !items.length) {
+      return {};
     }
-  });
+    data = { id: isbn, source };
 
-  return data;
+    const item = items[0];
+
+    const {
+      selfLink,
+      searchInfo: { textSnippet = "" } = {},
+      saleInfo: { country = "" } = {},
+      volumeInfo: {
+        publishedDate,
+        publisher,
+        title,
+        authors,
+        description,
+        industryIdentifiers,
+        pageCount,
+        printType,
+        categories,
+        maturityRating,
+        imageLinks: {
+          thumbnail = `https://via.placeholder.com/256x336.png?text=${encodeUri(
+            item.volumeInfo.title
+          )}`,
+          smallThumbnail = `https://via.placeholder.com/128x168.png?text=${encodeUri(
+            item.volumeInfo.title
+          )}`
+        } = {},
+        language,
+        canonicalVolumeLink
+      } = {}
+    } = item;
+
+    const identifiers = Object.assign(
+      {},
+      ...industryIdentifiers.map(({ type, identifier }) => ({
+        [type.toLowerCase()]: identifier
+      }))
+    );
+
+    const genre = categories ? categories.join(", ") : "";
+    const author = authors ? authors.join(", ") : "";
+
+    data = {
+      ...data,
+
+      ...identifiers,
+      title,
+      country,
+      description,
+      thumbnail,
+      smallThumbnail,
+      language,
+      maturityRating,
+      printType,
+      pageCount,
+      publisher,
+      genre,
+      author,
+      sourceLink: selfLink,
+      published: publishedDate,
+      url: canonicalVolumeLink,
+
+      excerpt: textSnippet
+    };
+
+    return { ...data };
+  } catch (err) {
+    console.log(err);
+    return data;
+  }
 };
