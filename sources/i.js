@@ -10,8 +10,6 @@ module.exports = async isbn => {
     const response = await fetch(titleURI(isbn));
     const book = await response.json();
 
-    console.log({ book });
-
     if (!Object.keys(book).length) {
       return {};
     }

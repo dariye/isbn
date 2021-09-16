@@ -4,14 +4,13 @@ const schema = joi
     id: joi.string().required(),
     url: joi.string().required(),
     title: joi.string().required(),
-    isbn_10: joi.string().required(),
-    isbn_13: joi.string().required(),
+    isbn_10: joi.string(),
+    isbn_13: joi.string(),
     author: joi.string().required(),
     source: joi.string().required(),
     pageCount: joi
-      .number()
-      .integer()
-      .default(0),
+      .string()
+      .default(''),
     published: joi.string().default(""),
     publisher: joi.string().default(""),
     excerpt: joi.string().default(""),
