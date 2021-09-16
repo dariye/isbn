@@ -10,20 +10,60 @@ const schema = joi
     source: joi.string().required(),
     pageCount: joi
       .string()
-      .default(''),
-    published: joi.string().default(""),
-    publisher: joi.string().default(""),
-    excerpt: joi.string().default(""),
-    genre: joi.string().default(""),
-    description: joi.string().default(""),
-    language: joi.string().default(""),
-    binding: joi.string().default(""),
-    smallThumbnail: joi.string().default(""),
-    thumbnail: joi.string().default(""),
-    maturityRating: joi.string().default(""),
-    printType: joi.string().default(""),
-    sourceLink: joi.string().default(""),
-    country: joi.string().default("")
+      .allow("")
+      .default(""),
+    published: joi
+      .string()
+      .allow("")
+      .default(""),
+    publisher: joi
+      .string()
+      .allow("")
+      .default(""),
+    excerpt: joi
+      .string()
+      .allow("")
+      .default(""),
+    genre: joi
+      .string()
+      .allow("")
+      .default(""),
+    description: joi
+      .string()
+      .allow("")
+      .default(""),
+    language: joi
+      .string()
+      .allow("")
+      .default(""),
+    binding: joi
+      .string()
+      .allow("")
+      .default(""),
+    smallThumbnail: joi
+      .string()
+      .allow("")
+      .default(""),
+    thumbnail: joi
+      .string()
+      .allow("")
+      .default(""),
+    maturityRating: joi
+      .string()
+      .allow("")
+      .default(""),
+    printType: joi
+      .string()
+      .allow("")
+      .default(""),
+    sourceLink: joi
+      .string()
+      .allow("")
+      .default(""),
+    country: joi
+      .string()
+      .allow("")
+      .default("")
   })
   .unknown();
 
