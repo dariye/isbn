@@ -3,10 +3,12 @@
   "alias": "isbn",
   "functions": {
     "api/graphql/index.js": {
-      "maxDuration": 15
+      "maxDuration": 100,
+      "memory": 3008
     },
     "api/rest/[isbn].js": {
-      "maxDuration": 15
+      "maxDuration": 100,
+      "memory": 3008
     }
   },
   "rewrites": [
