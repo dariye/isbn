@@ -1,19 +1,23 @@
 {
   "version": 2,
   "alias": "isbn",
-  "routes": [
+  "functions": {
+    "api/graphql/index.js": {
+      "maxDuration": 60
+    },
+    "api/rest/[isbn].js": {
+      "maxDuration": 60
+    }
+  },
+  "rewrites": [
+    { "source": "/graphql", "destination": "/api/graphql/index.js" },
     {
-      "src": "/graphql",
-      "methods": ["GET", "POST"],
-      "dest": "/api/graphql/index.js"
+      "source": "/find/:path((?<isbn>[^/]*))",
+      "destination": "/api/rest/[isbn].js"
     },
     {
-      "src": "/find/(?<isbn>[^/]*)",
-      "dest": "/api/rest/[isbn].js"
-    },
-    {
-      "src": "/.*",
-      "dest": "/_site/index.html"
+      "source": "/",
+      "destination": "/_site/index.html"
     }
   ]
 }
