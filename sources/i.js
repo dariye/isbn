@@ -4,11 +4,14 @@ const encodeUri = require("../utils/encode-uri");
 const titleURI = isbn => `https://isbn-gardners.vercel.app/api/${isbn}`;
 
 module.exports = async isbn => {
+  console.group("gardnersLookup");
   const source = "gardners";
   let data = {};
   try {
+    console.log({ isbn });
     const response = await fetch(titleURI(isbn));
     const book = await response.json();
+    console.log({ book });
 
     if (!Object.keys(book).length) {
       return {};
@@ -56,6 +59,8 @@ module.exports = async isbn => {
         cover ||
         `https://via.placeholder.com/128x168.png?text=${encodeUri(title)}`
     };
+
+    console.groupEnd("gardnersLookup");
 
     return { ...data };
   } catch (err) {
