@@ -41,7 +41,7 @@
     "p-retry": "^4.1.0",
     "route-parser": "^0.0.5",
     "serve-handler": "^6.1.2",
-    "validator": "^11.1.0",
+    "validator": "^13.7.0",
     "xml2js": "^0.4.23",
     "yarn": "^1.19.0"
   }
